@@ -24,13 +24,49 @@ void MainWindow::on_actionNew_triggered()
 // Open another file (Search)
 void MainWindow::on_actionOpen_triggered()
 {
+    QString fileContent;
 
+        QString filename= QFileDialog::getOpenFileName(this, "Open File");
+
+
+       if(filename.isEmpty())
+           return;
+
+       QFile file(filename);
+
+       if (!file.open(QIODevice::ReadWrite | QIODevice::Text))
+           return;
+
+       QTextStream in(&file);
+
+       fileContent= in.readAll();
+
+       file.close();
+
+       ui->textEdit->clear();
+       ui->textEdit->setPlainText(fileContent);
 }
 
 // Save current file
 void MainWindow::on_actionSave_triggered()
 {
+    QString filename= QFileDialog::getSaveFileName(this, "Save");
 
+        if (filename.isEmpty())
+            return;
+
+        QFile file(filename);
+
+
+        //Open the file
+        if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+            return;
+
+        QTextStream out(&file);
+
+        out << ui->textEdit->toPlainText() << "\n";
+
+        file.close();
 }
 
 // Copy highlighted text
