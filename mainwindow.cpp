@@ -1,5 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "search.h"
+
+#include <QDebug>
+#include <QDirIterator>
+#include <QLineEdit>
+#include <QTextEdit>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -67,6 +73,12 @@ void MainWindow::on_actionSave_triggered()
         out << ui->textEdit->toPlainText() << "\n";
 
         file.close();
+}
+
+void MainWindow::on_actionSearch_triggered()
+{
+    search_box = new search(this);
+    search_box->show();
 }
 
 // Copy highlighted text
