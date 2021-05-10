@@ -114,30 +114,6 @@ void MainWindow::on_actionSave_triggered()
     file.close();
 }
 
-// Copy highlighted text
-void MainWindow::on_actionCopy_triggered()
-{
-
-}
-
-// Cut highlighted text
-void MainWindow::on_actionCut_triggered()
-{
-
-}
-
-// Paste from clipboard
-void MainWindow::on_actionPaste_triggered()
-{
-
-}
-
-// Undo
-void MainWindow::on_actionUndo_triggered()
-{
-
-}
-
 /*
  * Get the word and character count in the file
  * - When the Get Counts button is pressed, it will analyze/ parse the file and count the amount of words and characters in the file
