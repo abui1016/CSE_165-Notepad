@@ -6,7 +6,7 @@
 #include <QFileDialog>
 #include <QTextStream>
 #include <QMessageBox>
-#include <search.h>
+#include <QString>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -37,15 +37,21 @@ private slots:
 
     void on_actionWord_Count_triggered();
 
-    void on_actionTheme_triggered();
+    void on_action_font_color();
 
-    void on_actionSearch_triggered();
+    void on_action_font_weight();
+
+    void on_fontDropDown_currentFontChanged(const QFont &f);
+
+    void on_fontSize_activated(const QString &arg1);
+
+    void on_action_alignment();
+
+    void on_action_UI_Theme();
 
 
 private:
     Ui::MainWindow *ui;
     QString currFile = ""; // Blank filename to start off
-    search *search_box;
 };
-
 #endif // MAINWINDOW_H
