@@ -5,6 +5,10 @@
 #include <QMessageBox>
 #include <QKeyEvent>
 
+//the following static variables are used to check if the bold and italics button are pressed
+//if true, then the code should turn these options off.
+static bool boldValid = false;
+static bool italicValid = false;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -83,10 +87,10 @@ void MainWindow::on_actionOpen_triggered()
    QTextStream in(&file);
 
     //open the file, save all the data in a string, close the file, then add the text into the UI
-   fileContent= in.readAll();
-   file.close();
-   ui->textEdit->clear();
-   ui->textEdit->setPlainText(fileContent);
+    fileContent= in.readAll();
+    file.close();
+    ui->textEdit->clear();
+    ui->textEdit->setPlainText(fileContent);
 }
 
 /*
@@ -172,14 +176,33 @@ void MainWindow::on_action_font_color(){
 // Change the font weight to bold or italics. Bold works sometimes... depends on the font chosen. Not all fonts let bold text
 void MainWindow::on_action_font_weight(){
     //if bold option picked, set the following text to bold font
-    if (ui->boldOption->isChecked()){
-        ui->textEdit->setFontWeight(20);
+    //if global variable bold valid is true, then the bold is turned on and needs to be turned off
+    if (ui->boldOption->isChecked() && boldValid == true){
+        ui->textEdit->setFontWeight(1);
+        boldValid = false;
         ui->boldOption->setChecked(false);
+        return;
     }
-    //if itlic option picked, set the following text to italic.
-    if (ui->italicsOption->isChecked()){
+    //if boldValid is false, then the bold option is turned off and should be turned on
+    if (ui->boldOption->isChecked() && boldValid == false){
+        ui->textEdit->setFontWeight(70);
+        ui->boldOption->setChecked(false);
+        boldValid = true;
+    }
+
+    //if italic option picked, set the following text to italic.
+    //if global variable is true, then the italics is turned on and needs to be turned off
+    if (ui->italicsOption->isChecked() && italicValid == true){
+        ui->textEdit->setFontItalic(false);
+        italicValid = false;
+        ui->italicsOption->setChecked(false);
+        return;
+    }
+    //if italicValid is true, then the italic options is turned off and should be turned on.
+    if (ui->italicsOption->isChecked() && italicValid == false){
         ui->textEdit->setFontItalic(true);
         ui->italicsOption->setChecked(false);
+        italicValid = true;
     }
 }
 
